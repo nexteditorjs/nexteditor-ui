@@ -43,7 +43,7 @@ export function getSelectedBlocksCommands(editor: NextEditor, selectedBlocks: Se
 
 function executeStyleCommand(editor: NextEditor, item: CommandItem, selectedBlock: SelectedBlock) {
   //
-  const oldValue = item.states?.indexOf('checked') === -1;
+  const oldValue = item.value;
   const newValue = !oldValue;
   const range = createEditorSelectionRange(editor, selectedBlock.start, selectedBlock.end);
   executeBlockCommand(editor, selectedBlock.block, range, item.id, { value: newValue});  

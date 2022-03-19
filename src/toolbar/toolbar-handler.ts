@@ -1,5 +1,5 @@
 import debounce from "lodash.debounce";
-import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectionRange } from "@nexteditorjs/nexteditor-core";
+import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectedBlock, SelectionRange } from "@nexteditorjs/nexteditor-core";
 import { Toolbar } from "./toolbar";
 import { getReferenceClientRect } from "./get-reference-client-rect";
 import { executeCommand, getSelectedBlocksCommands } from "./block-commands";
@@ -24,6 +24,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
 
   handleButtonClick = (toolbar: Toolbar, item: CommandItem) => {
     executeCommand(this.editor, item);
+    this.resetItems();
   };
 
   bindEvents() {
@@ -68,8 +69,12 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
       }
     }
     this.oldRange = editor.selection.range;
+    this.resetItems(selectedBlocks);
     //
-    const items = getSelectedBlocksCommands(editor, selectedBlocks);
-    this.toolbar.show(selectedBlocks[0].block, items, getReferenceClientRect(editor, selectedBlocks));
   }, 50);
+
+  private resetItems(selectedBlocks: SelectedBlock[] =  this.editor.selection.range.getSelectedBlocks()) {
+    const items = getSelectedBlocksCommands(this.editor, selectedBlocks);
+    this.toolbar.show(selectedBlocks[0].block, items, getReferenceClientRect(this.editor, selectedBlocks));
+  }
 }
