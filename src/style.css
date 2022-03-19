@@ -1,3 +1,32 @@
 .editor-toolbar {
   pointer-events: all;
+  display: flex;
+  box-sizing: border-box;
+  --primary-color: #FF1A75;
+}
+
+.editor-toolbar .editor-button {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #AAAAAA;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.editor-toolbar .editor-button:hover {
+  background-color: #444444;
+}
+
+.editor-toolbar .editor-button + .editor-button {
+  margin-left: 8px;
+}
+
+.editor-toolbar .editor-button.checked {
+  color: var(--primary-color);
 }

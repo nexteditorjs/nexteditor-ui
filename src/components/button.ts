@@ -1,4 +1,4 @@
-import { assert, createElement } from "@nexteditorjs/nexteditor-core";
+import { addClass, assert, CommandItemState, createElement } from "@nexteditorjs/nexteditor-core";
 
 export function getButtonId(button: HTMLButtonElement) {
   const id = button.getAttribute('data-button-id');
@@ -24,7 +24,7 @@ export function getParentButton(target: EventTarget): HTMLButtonElement | null {
   return element.closest('button.editor-button') ?? null;
 }
 
-export function createButton(id: string, name: string, child?: string | Element) {
+export function createButton(id: string, name: string, child?: string | Element, states?: CommandItemState[]) {
   const button = createElement('button', ['editor-button'], null);
   button.setAttribute('data-button-id', id);
   if (child) {
@@ -39,6 +39,14 @@ export function createButton(id: string, name: string, child?: string | Element)
     }
   } else {
     button.innerText = name;
+  }
+  if (states) {
+    if (states.indexOf('checked') !== -1) {
+      addClass(button, 'checked');
+    }
+    if (states.indexOf('disabled') !== -1) {
+      button.disabled = true;
+    }
   }
   return button;
 }

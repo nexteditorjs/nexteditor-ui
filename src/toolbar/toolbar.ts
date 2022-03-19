@@ -61,9 +61,9 @@ export class Toolbar {
       triggerTarget: elem,
       getReferenceClientRect: () => {
         const refRect = rect ?? elem.getBoundingClientRect();
-        const editorRect = this.editor.rootElement.getBoundingClientRect();
-        const left = refRect.left - editorRect.left;
-        const top = refRect.top - editorRect.top;
+        // const editorRect = this.editor.rootElement.getBoundingClientRect();
+        const left = refRect.left; // - editorRect.left;
+        const top = refRect.top; // refRect.top - editorRect.top;
         return new DOMRect(left, top, refRect.width, refRect.height);
       }
     });
