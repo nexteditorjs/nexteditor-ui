@@ -1,4 +1,4 @@
-import { CommandItem, createEditorSelectionRange, getBlockCommands, NextEditor, SelectedBlock } from "@nexteditorjs/nexteditor-core";
+import { CommandItem, createEditorSelectionRange, executeBlockCommand, getBlockCommands, NextEditor, SelectedBlock } from "@nexteditorjs/nexteditor-core";
 import intersection from 'lodash.intersection';
 
 export function getSelectedBlocksCommands(editor: NextEditor, selectedBlocks: SelectedBlock[]) {
@@ -31,11 +31,30 @@ export function getSelectedBlocksCommands(editor: NextEditor, selectedBlocks: Se
   const allCommands: CommandItem[] = [];
   //
   selectedBlocks.forEach((selectedBlock) => {
-    const commands = getBlockCommands(editor, selectedBlock.block, createEditorSelectionRange(editor, selectedBlock.start, selectedBlock.end));
+    const range = createEditorSelectionRange(editor, selectedBlock.start, selectedBlock.end);
+    const commands = getBlockCommands(editor, selectedBlock.block, range);
     commands.forEach((command) => {
       addCommand(allCommands, command);
     })
   });
   //
   return allCommands;
+}
+
+function executeStyleCommand(editor: NextEditor, item: CommandItem, selectedBlock: SelectedBlock) {
+  //
+  const oldValue = item.states?.indexOf('checked') === -1;
+  const newValue = !oldValue;
+  const range = createEditorSelectionRange(editor, selectedBlock.start, selectedBlock.end);
+  executeBlockCommand(editor, selectedBlock.block, range, item.id, { value: newValue});  
+}
+
+export function executeCommand(editor: NextEditor, item: CommandItem) {
+  //
+  const blocks = editor.selection.range.getSelectedBlocks();
+  if (item.id.startsWith('style-')) {
+    blocks.forEach((b) => {
+      executeStyleCommand(editor, item, b);
+    })
+  }
 }

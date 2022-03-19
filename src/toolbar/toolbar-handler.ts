@@ -1,22 +1,30 @@
 import debounce from "lodash.debounce";
-import { assert, NextEditor, NextEditorCallbacks } from "@nexteditorjs/nexteditor-core";
+import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectionRange } from "@nexteditorjs/nexteditor-core";
 import { Toolbar } from "./toolbar";
 import { getReferenceClientRect } from "./get-reference-client-rect";
-import { getSelectedBlocksCommands } from "./block-commands";
+import { executeCommand, getSelectedBlocksCommands } from "./block-commands";
 
 export default class NextEditorToolbarHandler implements NextEditorCallbacks {
   private toolbar: Toolbar;
   
   private mouseDown = false;
 
+  private oldRange: SelectionRange | null = null;
+
   constructor(private editor: NextEditor) {
     this.toolbar = new Toolbar(editor);
+    this.toolbar.onclick = this.handleButtonClick;
     this.bindEvents();
   }
 
   destroy() {
     this.unbindEvents();
+    this.toolbar.destroy();
   }
+
+  handleButtonClick = (toolbar: Toolbar, item: CommandItem) => {
+    executeCommand(this.editor, item);
+  };
 
   bindEvents() {
     document.addEventListener('mousedown', this.handleMouseDown);
@@ -31,7 +39,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
       document.addEventListener('mouseup', this.handleMouseUp);
       this.mouseDown = true;
     }
-    this.toolbar.hide();
+    // this.toolbar.hide();
   }
 
   handleMouseUp = () => {
@@ -53,6 +61,13 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
       this.toolbar.hide();
       return;
     }
+    //
+    if (this.oldRange) {
+      if (this.oldRange.isEqual(editor.selection.range)) {
+        return;
+      }
+    }
+    this.oldRange = editor.selection.range;
     //
     const items = getSelectedBlocksCommands(editor, selectedBlocks);
     this.toolbar.show(selectedBlocks[0].block, items, getReferenceClientRect(editor, selectedBlocks));

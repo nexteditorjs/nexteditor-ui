@@ -1,24 +1,58 @@
-import { NextEditor, CommandItem } from "@nexteditorjs/nexteditor-core";
+import { NextEditor, CommandItem, assert } from "@nexteditorjs/nexteditor-core";
 import tippy, { Instance } from "tippy.js";
+import { getButtonId, getParentButton } from "../components/button";
+import { createToolbar } from "../components/toolbar";
+
 import 'tippy.js/dist/tippy.css';
 
 export class Toolbar {
   private items: CommandItem[] = [];
 
+  onclick: ((toolbar: Toolbar, item: CommandItem) => void) | null = null;
+
   tippyInstance: Instance;
 
-  constructor(private editor: NextEditor) {
+  constructor(public readonly editor: NextEditor) {
     this.tippyInstance = tippy(editor.rootElement, {
       trigger: 'manual',
       triggerTarget: null,
+      hideOnClick: false,
     });
+  }
+
+  destroy() {
+    this.unbindEvents();
+    this.tippyInstance.destroy();
+  }
+
+  handleToolbarClick = (event: Event) => {
+    if (!event.target) return;
+    const button = getParentButton(event.target);
+    if (button && this.onclick) {
+      const buttonId = getButtonId(button);
+      const item = this.items.find((item) => item.id === buttonId);
+      assert(item, 'failed to find button in items');
+      this.onclick(this, item);
+    }
+  }
+
+  bindEvents(content: Element) {
+    content.addEventListener('click', this.handleToolbarClick);
+  }
+
+  unbindEvents() {
+    const oldContent = this.tippyInstance.props.content;
+    if (oldContent instanceof Element) {
+      oldContent.removeEventListener('click', this.handleToolbarClick);
+    }
   }
 
   setItems(items: CommandItem[]) {
     this.items = items;
-    const content = items.map((item) => item.name).join();
-    // update contents
-    this.tippyInstance.setContent(content);
+    this.unbindEvents();
+    const toolbar = createToolbar(items);
+    this.bindEvents(toolbar);
+    this.tippyInstance.setContent(toolbar);
   }
 
   show(elem: Element, items: CommandItem[], rect?: DOMRect) {

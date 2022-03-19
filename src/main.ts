@@ -7,8 +7,8 @@ import {
 } from '@nexteditorjs/nexteditor-core';
 import { MarkdownInputHandler } from '@nexteditorjs/nexteditor-input-handlers';
 
-import './style.css';
-import NextEditorToolbarHandler from './toolbar/toolbar-handler';
+import './app.css';
+import { NextEditorToolbarHandler } from './index';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 assert(app, 'app does not exists');
