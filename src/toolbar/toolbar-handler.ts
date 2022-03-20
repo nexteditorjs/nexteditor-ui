@@ -1,12 +1,12 @@
-import debounce from "lodash.debounce";
-import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectedBlock, SelectionRange } from "@nexteditorjs/nexteditor-core";
-import { Toolbar } from "./toolbar";
-import { getReferenceClientRect } from "./get-reference-client-rect";
-import { executeCommand, getSelectedBlocksCommands } from "./block-commands";
+import debounce from 'lodash.debounce';
+import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectedBlock, SelectionRange } from '@nexteditorjs/nexteditor-core';
+import { Toolbar } from './toolbar';
+import { getReferenceClientRect } from './get-reference-client-rect';
+import { executeCommand, getSelectedBlocksCommands } from './block-commands';
 
 export default class NextEditorToolbarHandler implements NextEditorCallbacks {
   private toolbar: Toolbar;
-  
+
   private mouseDown = false;
 
   private oldRange: SelectionRange | null = null;
@@ -32,7 +32,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
   }
 
   unbindEvents() {
-    document.removeEventListener('mousedown', this.handleMouseDown)
+    document.removeEventListener('mousedown', this.handleMouseDown);
   }
 
   handleMouseDown = (event: MouseEvent) => {
@@ -41,25 +41,27 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
       this.mouseDown = true;
     }
     // this.toolbar.hide();
-  }
+  };
 
   handleMouseUp = () => {
     document.removeEventListener('mouseup', this.handleMouseUp);
     this.mouseDown = false;
     this.handleSelectionChange(this.editor);
-  }
+  };
 
   handleSelectionChange = debounce((editor: NextEditor) => {
     assert(editor === this.editor);
     //
     if (editor.selection.range.isCollapsed() || this.mouseDown) {
       this.toolbar.hide();
+      this.oldRange = null;
       return;
     }
     //
     const selectedBlocks = editor.selection.range.getSelectedBlocks();
     if (selectedBlocks.length === 0) {
       this.toolbar.hide();
+      this.oldRange = null;
       return;
     }
     //
@@ -73,7 +75,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
     //
   }, 50);
 
-  private resetItems(selectedBlocks: SelectedBlock[] =  this.editor.selection.range.getSelectedBlocks()) {
+  private resetItems(selectedBlocks: SelectedBlock[] = this.editor.selection.range.getSelectedBlocks()) {
     const items = getSelectedBlocksCommands(this.editor, selectedBlocks);
     this.toolbar.show(selectedBlocks[0].block, items, getReferenceClientRect(this.editor, selectedBlocks));
   }

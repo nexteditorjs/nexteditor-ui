@@ -1,4 +1,4 @@
-import { addClass, assert, CommandItemState, createElement } from "@nexteditorjs/nexteditor-core";
+import { addClass, assert, CommandItemState, createElement } from '@nexteditorjs/nexteditor-core';
 
 export function getButtonId(button: HTMLButtonElement) {
   const id = button.getAttribute('data-button-id');

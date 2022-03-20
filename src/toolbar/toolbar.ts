@@ -1,7 +1,7 @@
-import { NextEditor, CommandItem, assert } from "@nexteditorjs/nexteditor-core";
-import tippy, { Instance } from "tippy.js";
-import { getButtonId, getParentButton } from "../components/button";
-import { createToolbar } from "../components/toolbar";
+import { NextEditor, CommandItem, assert } from '@nexteditorjs/nexteditor-core';
+import tippy, { Instance } from 'tippy.js';
+import { getButtonId, getParentButton } from '../components/button';
+import { createToolbar } from '../components/toolbar';
 
 import 'tippy.js/dist/tippy.css';
 
@@ -34,7 +34,7 @@ export class Toolbar {
       assert(item, 'failed to find button in items');
       this.onclick(this, item);
     }
-  }
+  };
 
   bindEvents(content: Element) {
     content.addEventListener('click', this.handleToolbarClick);
@@ -65,7 +65,7 @@ export class Toolbar {
         const left = refRect.left; // - editorRect.left;
         const top = refRect.top; // refRect.top - editorRect.top;
         return new DOMRect(left, top, refRect.width, refRect.height);
-      }
+      },
     });
     if (!this.tippyInstance.state.isVisible) {
       this.tippyInstance.show();

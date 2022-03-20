@@ -1,5 +1,5 @@
-import { CommandItem, createElement } from "@nexteditorjs/nexteditor-core";
-import { createButton, createSeparator } from "./button";
+import { CommandItem, createElement } from '@nexteditorjs/nexteditor-core';
+import { createButton, createSeparator } from './button';
 import icons from '../icons';
 
 const IconNames: { [index: string]: string } = {
@@ -8,7 +8,7 @@ const IconNames: { [index: string]: string } = {
   'style-underline': 'format_underline',
   'style-line-through': 'format_strikethrough',
   'style-code': 'code',
-}
+};
 
 function getButtonChildren(item: CommandItem) {
   if (item.element) {
