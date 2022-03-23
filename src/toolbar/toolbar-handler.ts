@@ -4,6 +4,7 @@ import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
 import { getStyleCommands } from './style-commands';
+import { getTableCommands } from './table-commands';
 
 export default class NextEditorToolbarHandler implements NextEditorCallbacks {
   private toolbar: Toolbar;
@@ -83,6 +84,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
     if (!firstBlock) return;
     const commands = this.editor.editorCommandProviders.getCommands(this.editor.selection.range);
     const styleItems = getStyleCommands(commands);
-    this.toolbar.show(firstBlock.block, styleItems, getReferenceClientRect(this.editor, selectedBlocks));
+    const tableItems = getTableCommands(commands);
+    this.toolbar.show(firstBlock.block, [...styleItems, ...tableItems], getReferenceClientRect(this.editor, selectedBlocks));
   }
 }

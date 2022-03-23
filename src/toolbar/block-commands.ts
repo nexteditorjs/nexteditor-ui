@@ -10,5 +10,7 @@ function executeStyleCommand(editor: NextEditor, range: SelectionRange, item: Co
 export function executeCommand(editor: NextEditor, item: CommandItem) {
   if (item.id.startsWith('style-')) {
     executeStyleCommand(editor, editor.selection.range, item);
+  } else {
+    editor.editorCommandProviders.executeCommand(editor.selection.range, item.id, {});
   }
 }
