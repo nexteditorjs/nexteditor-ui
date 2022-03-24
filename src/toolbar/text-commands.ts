@@ -2,22 +2,22 @@ import { BlockCommandItem, CommandItem } from '@nexteditorjs/nexteditor-core';
 import intersection from 'lodash.intersection';
 
 const TextCommands = {
-  'style-bold': 'bold',
-  'style-italic': 'italic',
-  'style-underline': 'underline',
-  'style-line-through': 'line-through',
-  'style-code': 'code',
+  'text/style-bold': 'bold',
+  'text/style-italic': 'italic',
+  'text/style-underline': 'underline',
+  'text/style-line-through': 'line-through',
+  'text/style-code': 'code',
 };
 
 const IconNames: { [index: string]: string } = {
-  'style-bold': 'format_bold',
-  'style-italic': 'format_italic',
-  'style-underline': 'format_underline',
-  'style-line-through': 'format_strikethrough',
-  'style-code': 'code',
+  'text/style-bold': 'format_bold',
+  'text/style-italic': 'format_italic',
+  'text/style-underline': 'format_underline',
+  'text/style-line-through': 'format_strikethrough',
+  'text/style-code': 'code',
 };
 
-function mergeStyleCommands(blockCommands: CommandItem[]) {
+function mergeTextStyleCommands(blockCommands: CommandItem[]) {
   //
   const addCommand = (commands: CommandItem[], item: CommandItem) => {
     //
@@ -50,11 +50,11 @@ function mergeStyleCommands(blockCommands: CommandItem[]) {
   return allCommands;
 }
 
-export function getStyleCommands(blockCommands: BlockCommandItem[]): CommandItem[] {
+export function getTextCommands(blockCommands: BlockCommandItem[]): CommandItem[] {
   //
   const styleCommandsSet = new Set(Object.keys(TextCommands));
   const styleCommands = blockCommands.filter((command) => styleCommandsSet.has(command.id));
-  return mergeStyleCommands(styleCommands).map((item) => ({
+  return mergeTextStyleCommands(styleCommands).map((item) => ({
     ...item,
     icon: `<span class="material-icons">${IconNames[item.id]}</span>`,
   }));

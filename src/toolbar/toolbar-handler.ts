@@ -3,7 +3,7 @@ import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectionRange } 
 import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
-import { getStyleCommands } from './text-commands';
+import { getTextCommands } from './text-commands';
 import { getTableCommands } from './table-commands';
 
 const SEP: CommandItem = {
@@ -89,7 +89,7 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
     const firstBlock = selectedBlocks[0];
     if (!firstBlock) return;
     const commands = this.editor.editorCommandProviders.getCommands(this.editor.selection.range);
-    const styleItems = getStyleCommands(commands);
+    const styleItems = getTextCommands(commands);
     const tableItems = getTableCommands(commands);
     const toolbarCommands: CommandItem[] = [];
     if (tableItems.length > 0) {
