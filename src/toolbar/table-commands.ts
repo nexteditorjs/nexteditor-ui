@@ -1,4 +1,10 @@
 import { BlockCommandItem, CommandItem } from '@nexteditorjs/nexteditor-core';
+import { SplitCellIcon, MergeCellsIcon } from '../icons';
+
+const iconsMap: { [index: string]: string } = {
+  'table/merge-cells': MergeCellsIcon,
+  'table/split-cell': SplitCellIcon,
+};
 
 export function getTableCommands(blockCommands: BlockCommandItem[]): CommandItem[] {
   const tableCommands = blockCommands.filter((command) => command.id.startsWith('table/'));
@@ -6,5 +12,10 @@ export function getTableCommands(blockCommands: BlockCommandItem[]): CommandItem
     return [];
   }
   //
-  return tableCommands;
+  const result = tableCommands.map((item) => ({
+    ...item,
+    icon: iconsMap[item.id],
+  }));
+  //
+  return result;
 }

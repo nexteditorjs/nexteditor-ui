@@ -3,8 +3,14 @@ import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectionRange } 
 import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
-import { getStyleCommands } from './style-commands';
+import { getStyleCommands } from './text-commands';
 import { getTableCommands } from './table-commands';
+
+const SEP: CommandItem = {
+  id: '',
+  name: '',
+  type: 'separator',
+};
 
 export default class NextEditorToolbarHandler implements NextEditorCallbacks {
   private toolbar: Toolbar;
@@ -85,6 +91,21 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
     const commands = this.editor.editorCommandProviders.getCommands(this.editor.selection.range);
     const styleItems = getStyleCommands(commands);
     const tableItems = getTableCommands(commands);
-    this.toolbar.show(firstBlock.block, [...styleItems, ...tableItems], getReferenceClientRect(this.editor, selectedBlocks));
+    const toolbarCommands: CommandItem[] = [];
+    if (tableItems.length > 0) {
+      toolbarCommands.push(...tableItems);
+    }
+    if (styleItems) {
+      if (toolbarCommands.length > 0) {
+        toolbarCommands.push(SEP);
+      }
+      toolbarCommands.push(...styleItems);
+    }
+    if (toolbarCommands.length === 0) {
+      this.toolbar.hide();
+      return;
+    }
+    //
+    this.toolbar.show(firstBlock.block, toolbarCommands, getReferenceClientRect(this.editor, selectedBlocks));
   }
 }

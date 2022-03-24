@@ -1,5 +1,6 @@
 // vite.config.js
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+import svgLoader from 'vite-svg-loader';
 const path = require('path')
 const { defineConfig } = require('vite')
 
@@ -9,6 +10,7 @@ module.exports = defineConfig({
   },
   plugins: [
     cssInjectedByJsPlugin(),
+    svgLoader(),
   ],
   build: {
     minify: 'terser',
