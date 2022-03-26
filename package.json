@@ -13,7 +13,7 @@
     "dist": "vite build && tsc --emitDeclarationOnly --project tsconfig.dist.json"
   },
   "dependencies": {
-    "@nexteditorjs/nexteditor-core": "^0.0.27",
+    "@nexteditorjs/nexteditor-core": "^0.0.28",
     "lodash.debounce": "^4.0.8",
     "lodash.intersection": "^4.4.0",
     "tippy.js": "^6.3.7",
@@ -26,8 +26,8 @@
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vite-svg-loader": "*",
-    "@nexteditorjs/nexteditor-input-handlers": "^0.0.27",
-    "@nexteditorjs/nexteditor-table-block": "^0.0.27",
+    "@nexteditorjs/nexteditor-input-handlers": "^0.0.28",
+    "@nexteditorjs/nexteditor-table-block": "^0.0.28",
     "vite-plugin-css-injected-by-js": "^1.1.0"
   }
 }
