@@ -7,6 +7,7 @@ import {
 } from '@nexteditorjs/nexteditor-core';
 import { MarkdownInputHandler } from '@nexteditorjs/nexteditor-input-handlers';
 import TableBlock, { TableBlockCommandProvider } from '@nexteditorjs/nexteditor-table-block';
+import ListBlock from '@nexteditorjs/nexteditor-list-block';
 
 import './app.css';
 import { NextEditorToolbarHandler } from './index';
@@ -16,7 +17,7 @@ assert(app, 'app does not exists');
 
 const editor = createEditor(app, new LocalDoc(createEmptyDoc()), {
   components: {
-    blocks: [TableBlock],
+    blocks: [TableBlock, ListBlock],
     commandProviders: [new TableBlockCommandProvider()],
   },
 });

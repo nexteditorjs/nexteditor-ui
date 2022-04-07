@@ -29,6 +29,7 @@
     "vite-svg-loader": "*",
     "@nexteditorjs/nexteditor-input-handlers": "^0.0.31",
     "@nexteditorjs/nexteditor-table-block": "^0.0.31",
+    "@nexteditorjs/nexteditor-list-block": "^0.0.31",
     "vite-plugin-css-injected-by-js": "^1.1.0"
   }
 }

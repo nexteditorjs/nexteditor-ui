@@ -56,6 +56,6 @@ export function getTextCommands(blockCommands: BlockCommandItem[]): CommandItem[
   const styleCommands = blockCommands.filter((command) => styleCommandsSet.has(command.id));
   return mergeTextStyleCommands(styleCommands).map((item) => ({
     ...item,
-    icon: `<span class="material-icons">${IconNames[item.id]}</span>`,
+    icon: `<span class="material-icons-outlined">${IconNames[item.id]}</span>`,
   }));
 }
