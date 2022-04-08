@@ -23,6 +23,7 @@
     "@types/blueimp-md5": "^2.18.0",
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.intersection": "^4.4.0",
+    "@types/node": "^12.0.0",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vite-svg-loader": "*",
@@ -30,8 +31,5 @@
     "@nexteditorjs/nexteditor-table-block": "^0.0.33",
     "@nexteditorjs/nexteditor-list-block": "^0.0.4",
     "vite-plugin-css-injected-by-js": "^1.1.0"
-  },
-  "peerDependencies": {
-    "@types/node": "^12.0.0"
   }
 }
