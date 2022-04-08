@@ -22,7 +22,8 @@ const editor = createEditor(app, new LocalDoc(createEmptyDoc()), {
   },
 });
 
-editor.registerCallback(new NextEditorToolbarHandler(editor));
+// attach toolbar handler to editor
+editor.addCustom('toolbar-handler', (editor) => new NextEditorToolbarHandler(editor));
 
 editor.input.addHandler(new MarkdownInputHandler());
 

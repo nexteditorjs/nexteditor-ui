@@ -21,6 +21,7 @@ export class Toolbar {
   }
 
   destroy() {
+    this.onclick = null;
     this.unbindEvents();
     this.tippyInstance.destroy();
   }

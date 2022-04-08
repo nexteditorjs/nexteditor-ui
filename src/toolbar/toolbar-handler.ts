@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-import { assert, CommandItem, NextEditor, NextEditorCallbacks, SelectionRange } from '@nexteditorjs/nexteditor-core';
+import { assert, CommandItem, NextEditor, SelectionRange } from '@nexteditorjs/nexteditor-core';
 import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
@@ -12,7 +12,7 @@ const SEP: CommandItem = {
   type: 'separator',
 };
 
-export default class NextEditorToolbarHandler implements NextEditorCallbacks {
+export default class NextEditorToolbarHandler {
   private toolbar: Toolbar;
 
   private mouseDown = false;
@@ -23,11 +23,13 @@ export default class NextEditorToolbarHandler implements NextEditorCallbacks {
     this.toolbar = new Toolbar(editor);
     this.toolbar.onclick = this.handleButtonClick;
     this.bindEvents();
+    editor.addListener('selectionChanged', this.handleSelectionChange);
   }
 
   destroy() {
     this.unbindEvents();
     this.toolbar.destroy();
+    this.editor.removeListener('selectionChanged', this.handleSelectionChange);
   }
 
   handleButtonClick = (toolbar: Toolbar, item: CommandItem) => {
