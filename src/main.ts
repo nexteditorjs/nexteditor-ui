@@ -3,6 +3,7 @@ import {
   assert,
   createEditor,
   createEmptyDoc,
+  getLogger,
   LocalDoc,
 } from '@nexteditorjs/nexteditor-core';
 import { MarkdownInputHandler } from '@nexteditorjs/nexteditor-input-handlers';
@@ -12,8 +13,10 @@ import ListBlock from '@nexteditorjs/nexteditor-list-block';
 import './app.css';
 import { NextEditorToolbarHandler } from './index';
 
+const logger = getLogger('main');
+
 const app = document.querySelector<HTMLDivElement>('#app');
-assert(app, 'app does not exists');
+assert(logger, app, 'app does not exists');
 
 const editor = createEditor(app, new LocalDoc(createEmptyDoc()), {
   components: {

@@ -1,9 +1,11 @@
-import { addClass, assert, CommandItemState, createElement } from '@nexteditorjs/nexteditor-core';
+import { addClass, assert, CommandItemState, createElement, getLogger } from '@nexteditorjs/nexteditor-core';
+
+const logger = getLogger('button');
 
 export function getButtonId(button: HTMLButtonElement) {
   const id = button.getAttribute('data-button-id');
   if (!id) {
-    assert(false, 'unknown button id');
+    assert(logger, false, 'unknown button id');
   }
   return id;
 }

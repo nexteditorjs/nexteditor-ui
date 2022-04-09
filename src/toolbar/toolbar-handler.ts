@@ -1,10 +1,12 @@
 import debounce from 'lodash.debounce';
-import { assert, CommandItem, NextEditor, SelectionRange } from '@nexteditorjs/nexteditor-core';
+import { assert, CommandItem, getLogger, NextEditor, SelectionRange } from '@nexteditorjs/nexteditor-core';
 import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
 import { getTextCommands } from './text-commands';
 import { getTableCommands } from './table-commands';
+
+const logger = getLogger('toolbar-handler');
 
 const SEP: CommandItem = {
   id: '',
@@ -60,7 +62,7 @@ export default class NextEditorToolbarHandler {
   };
 
   handleSelectionChange = debounce((editor: NextEditor) => {
-    assert(editor === this.editor);
+    assert(logger, editor === this.editor, 'editor mismatch');
     //
     if (editor.selection.range.isCollapsed() || this.mouseDown) {
       this.toolbar.hide();

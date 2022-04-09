@@ -1,9 +1,11 @@
-import { NextEditor, CommandItem, assert } from '@nexteditorjs/nexteditor-core';
+import { NextEditor, CommandItem, assert, getLogger } from '@nexteditorjs/nexteditor-core';
 import tippy, { Instance } from 'tippy.js';
 import { getButtonId, getParentButton } from '../components/button';
 import { createToolbar } from '../components/toolbar';
 
 import 'tippy.js/dist/tippy.css';
+
+const logger = getLogger('toolbar');
 
 export class Toolbar {
   private items: CommandItem[] = [];
@@ -32,7 +34,7 @@ export class Toolbar {
     if (button && this.onclick) {
       const buttonId = getButtonId(button);
       const item = this.items.find((item) => item.id === buttonId);
-      assert(item, 'failed to find button in items');
+      assert(logger, item, 'failed to find button in items');
       this.onclick(this, item);
     }
   };
