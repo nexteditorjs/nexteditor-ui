@@ -1,6 +1,6 @@
 {
   "name": "@nexteditorjs/nexteditor-ui",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "files": [
     "dist"
   ],
@@ -13,7 +13,7 @@
     "dist": "vite build && tsc --emitDeclarationOnly --project tsconfig.dist.json"
   },
   "dependencies": {
-    "@nexteditorjs/nexteditor-core": "^0.0.34",
+    "@nexteditorjs/nexteditor-core": "^0.0.35",
     "lodash.debounce": "^4.0.8",
     "lodash.intersection": "^4.4.0",
     "tippy.js": "^6.3.7",
@@ -27,9 +27,9 @@
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vite-svg-loader": "*",
-    "@nexteditorjs/nexteditor-input-handlers": "^0.0.34",
-    "@nexteditorjs/nexteditor-table-block": "^0.0.34",
-    "@nexteditorjs/nexteditor-list-block": "^0.0.34",
+    "@nexteditorjs/nexteditor-input-handlers": "^0.0.35",
+    "@nexteditorjs/nexteditor-table-block": "^0.0.35",
+    "@nexteditorjs/nexteditor-list-block": "^0.0.35",
     "vite-plugin-css-injected-by-js": "^1.1.0"
   }
 }
