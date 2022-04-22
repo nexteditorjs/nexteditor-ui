@@ -29,6 +29,7 @@ export function getParentButton(target: EventTarget): HTMLButtonElement | null {
 export function createButton(id: string, name: string, child?: string | Element, states?: CommandItemState[]) {
   const button = createElement('button', ['editor-button'], null);
   button.setAttribute('data-button-id', id);
+  button.setAttribute('data-tippy-content', name);
   if (child) {
     if (typeof child === 'string') {
       if (child.startsWith('<')) {

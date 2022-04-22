@@ -1,5 +1,6 @@
 import debounce from 'lodash.debounce';
 import { assert, CommandItem, getLogger, NextEditor, SelectionRange } from '@nexteditorjs/nexteditor-core';
+import tippy, { delegate } from 'tippy.js';
 import { Toolbar } from './toolbar';
 import { getReferenceClientRect } from './get-reference-client-rect';
 import { executeCommand } from './block-commands';
@@ -26,6 +27,11 @@ export default class NextEditorToolbarHandler {
     this.toolbar.onclick = this.handleButtonClick;
     this.bindEvents();
     editor.addListener('selectionChanged', this.handleSelectionChange);
+    // toolbar button tooltip
+    delegate(document.body, {
+      delay: 300,
+      target: '.editor-button[data-tippy-content]',
+    });
   }
 
   destroy() {

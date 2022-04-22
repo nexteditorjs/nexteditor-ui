@@ -37,3 +37,7 @@
   width: 1px;
   background-color: #666;
 }
+
+[data-tippy-root] {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
