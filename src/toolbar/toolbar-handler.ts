@@ -53,6 +53,7 @@ export default class NextEditorToolbarHandler {
       this.mouseDown = true;
     }
     // this.toolbar.hide();
+    event.preventDefault();
   };
 
   handleMouseUp = () => {
@@ -99,7 +100,7 @@ export default class NextEditorToolbarHandler {
     if (tableItems.length > 0) {
       toolbarCommands.push(...tableItems);
     }
-    if (styleItems) {
+    if (styleItems && styleItems.length > 0) {
       if (toolbarCommands.length > 0) {
         toolbarCommands.push(SEP);
       }
